@@ -48,3 +48,5 @@ export const getParentInvoices = () => API.get('/parent/invoices/');
 export const createParentPayment = (data) => API.post('/parent/payments/', data);
 
 export const getParentPayments = () => API.get('/parent/payments/');
+
+export const getGuardians = () => API.get('/guardians/');

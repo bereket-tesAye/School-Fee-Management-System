@@ -9,6 +9,7 @@ import Payments from './pages/Payments';
 import ParentLogin from './pages/ParentLogin';
 import ParentDashboard from './pages/ParentDashboard';
 import ParentPayment from './pages/ParentPayment';
+import ParentRegister from './pages/ParentRegister';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/parent/login" element={<ParentLogin />} />
         <Route path="/parent/dashboard" element={<ParentLayout><ParentDashboard /></ParentLayout>} />
         <Route path="/parent/pay/:invoiceId" element={<ParentLayout><ParentPayment /></ParentLayout>} />
+        <Route path="/parent/register" element={<ParentRegister />} />
       </Routes>
     </Router>
   );

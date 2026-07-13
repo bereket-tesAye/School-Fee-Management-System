@@ -122,7 +122,9 @@ class ParentInvoiceViewSet(viewsets.ReadOnlyModelViewSet):
         token = self.request.headers.get('Authorization', '').replace('Bearer ', '')
         try:
             parent = ParentUser.objects.get(token=token)
-            student_ids = parent.guardian.student_set.values_list('id', flat=True)
+            # Fix: Use Student.objects.filter instead of student_set
+            students = Student.objects.filter(guardians=parent.guardian)
+            student_ids = students.values_list('id', flat=True)
             return Invoice.objects.filter(student_id__in=student_ids)
         except ParentUser.DoesNotExist:
             return Invoice.objects.none()
@@ -134,7 +136,9 @@ class ParentPaymentViewSet(viewsets.ModelViewSet):
         token = self.request.headers.get('Authorization', '').replace('Bearer ', '')
         try:
             parent = ParentUser.objects.get(token=token)
-            student_ids = parent.guardian.student_set.values_list('id', flat=True)
+            # Fix: Use Student.objects.filter instead of student_set
+            students = Student.objects.filter(guardians=parent.guardian)
+            student_ids = students.values_list('id', flat=True)
             return Payment.objects.filter(invoice__student_id__in=student_ids)
         except ParentUser.DoesNotExist:
             return Payment.objects.none()

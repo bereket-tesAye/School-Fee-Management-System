@@ -16,7 +16,7 @@ function ParentLogin() {
         try {
             const res = await parentLogin(email, password);
             // Store token and parent info in localStorage
-            localStorage.setItem('parentToken', res.data.access);
+            localStorage.setItem('parentToken', res.data.token);
             localStorage.setItem('parentId', res.data.parent_id);
             localStorage.setItem('parentName', res.data.name);
             localStorage.setItem('guardianId', res.data.guardian_id);
@@ -85,7 +85,10 @@ function ParentLogin() {
                 </form>
 
                 <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '13px', color: '#666' }}>
-                    Don't have an account? Contact your school to register.
+                    Don't have an account?{' '}
+                    <a href="/parent/register" style={{ color: '#1F6BB0', textDecoration: 'none', fontWeight: '500' }}>
+                        Register here
+                    </a>
                 </p>
             </div>
         </div>
