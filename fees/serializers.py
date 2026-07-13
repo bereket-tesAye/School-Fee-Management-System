@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Class, Student, Guardian, Invoice, Payment
+from .models import Class, Student, Guardian, Invoice, Payment, ParentUser
 
 class ClassSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,3 +34,9 @@ class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Invoice
         fields = '__all__'
+
+
+class ParentUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ParentUser
+        fields = ['id', 'email', 'guardian']

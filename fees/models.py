@@ -1,4 +1,5 @@
 from django.db import models
+import secrets
 
 class Class(models.Model):
     name = models.CharField(max_length=100)  # e.g. "Grade 7B"
@@ -71,3 +72,19 @@ class AdminUser(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.role})"
+
+
+class ParentUser(models.Model):
+    guardian = models.OneToOneField(Guardian, on_delete=models.CASCADE, related_name='parent_user')
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=255)
+    token = models.CharField(max_length=100, unique=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.token:
+            self.token = secrets.token_urlsafe(32)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.email} - {self.guardian.full_name}"
